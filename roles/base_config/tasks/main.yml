@@ -1,0 +1,29 @@
+---
+
+- name: rename host
+  hostname:
+    name: "{{host_name}}"
+
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: install base packages
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - python34
+    - python34-pip
+
+- name: create file
+  file:
+    path: /etc/{{file_name}}
+    state: touch
+
+- name: make another file but only if the hostname matches current hostname
+  file:
+    path: /etc/hostname_matches
+    state: touch
+  when: host_name == "server3"
