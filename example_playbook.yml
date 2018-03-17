@@ -1,0 +1,24 @@
+---
+- name: example playbook
+  hosts: all
+  become: yes
+
+  vars_prompt:
+    - name: host_name
+      prompt: host name
+      private: no
+
+
+  vars:
+   file_name: "hello"
+
+  tasks:
+
+    - name: rename host
+      hostname:
+        name: "{{host_name}}"
+
+    - name: create file
+      file:
+        path: /etc/{{file_name}}
+        state: touch

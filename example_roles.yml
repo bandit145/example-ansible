@@ -1,0 +1,16 @@
+---
+- name: example playbook
+  hosts: all
+  become: yes
+
+  vars_prompt:
+    - name: host_name
+      prompt: host name
+      private: no
+
+
+  vars:
+   file_name: "hello"
+
+  roles:
+    - base_config
